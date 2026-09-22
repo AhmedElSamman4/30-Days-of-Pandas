@@ -1,0 +1,12 @@
+import pandas as pd
+
+def valid_emails(users: pd.DataFrame) -> pd.DataFrame:
+    # ^[A-Za-z]         -> Must start with a letter
+    # [A-Za-z0-9_.-]*    -> Can only be followed by letters, numbers, underscores, dots, or dashes
+    # @leetcode\.com$   -> Must end exactly with @leetcode.com
+    regex_pattern = r'^[A-Za-z][A-Za-z0-9_.-]*@leetcode\.com$'
+    
+    # Filter the data using the regex pattern
+    output = users[users['mail'].str.contains(regex_pattern, na=False)]
+    
+    return output[['user_id', 'name', 'mail']]
